@@ -1,0 +1,27 @@
+{
+  "name": "liaison",
+  "version": "0.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/pddivine/liaison.git"
+  },
+  "author": "Patrick Divine",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/pddivine/liaison/issues"
+  },
+  "homepage": "https://github.com/pddivine/liaison#readme",
+  "dependencies": {
+    "value-validator": "git+https://github.com/pddivine/value-validator#master",
+    "typeof": "git+https://github.com/pddivine/typeOf#master"
+  },
+  "devDependencies": {
+    "chai": "^3.5.0",
+    "mocha": "^3.2.0"
+  }
+}
