@@ -8,7 +8,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/pddivine/liaison.git"
+    "url": "git+https://github.com/pddivine/liaison-server.git"
   },
   "author": "Patrick Divine",
   "license": "ISC",
