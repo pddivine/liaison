@@ -4,6 +4,7 @@ const liasion = require(root);
 
 // Mimic req, res, and next objects.
 const req = {
+  url: '',
   params: {},
   query: {},
   body: {}
@@ -27,25 +28,34 @@ const validationSchema = {
   }
 };
 
+const base64 = {
+  stringify: function (v) {
+    return new Buffer(v).toString('base64');
+  },
+  parse: function (v) {
+    return new Buffer(v, 'base64').toString('ascii');
+  }
+}
+
 const requestExamples = {
   GET: {
     correct: {
-      query: {
+      url: `?${base64.stringify(JSON.stringify({
         a: '123'
-      }
+      }))}`
     },
     incorrect: {
-      query: {
+      url: `?${base64.stringify(JSON.stringify({
         a: 123
-      }
+      }))}`
     },
     empty: {
-      query: {}
+      url: `?${base64.stringify(JSON.stringify({}))}`
     },
     extra: {
-      query: {
+      url: `?${base64.stringify(JSON.stringify({
         a: '123'
-      },
+      }))}`,
       body: {
         extra: 'extra'
       }
@@ -69,7 +79,7 @@ const requestExamples = {
       body: {
         a: '123'
       },
-      query: {
+      params: {
         a: 'extra'
       }
     },
@@ -92,7 +102,7 @@ const requestExamples = {
       body: {
         a: '123'
       },
-      query: {
+      params: {
         a: 'extra'
       }
     },
@@ -115,7 +125,7 @@ const requestExamples = {
       body: {
         a: '123'
       },
-      query: {
+      params: {
         a: 'extra'
       }
     },
@@ -138,7 +148,7 @@ const requestExamples = {
       params: {
         a: '123'
       },
-      query: {
+      body: {
         a: 'extra'
       }
     },
