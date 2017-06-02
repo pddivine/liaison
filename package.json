@@ -17,11 +17,15 @@
   },
   "homepage": "https://github.com/pddivine/liaison#readme",
   "dependencies": {
-    "value-validator": "git+https://github.com/pddivine/value-validator#master",
-    "typeof": "git+https://github.com/pddivine/typeOf#master"
+    "typeof.pddivine": "^1.0.0",
+    "value-validator.pddivine": "0.0.1"
   },
   "devDependencies": {
+    "body-parser": "^1.17.2",
     "chai": "^3.5.0",
-    "mocha": "^3.2.0"
+    "express": "^4.15.3",
+    "mocha": "^3.2.0",
+    "node-root.pddivine": "git+https://github.com/pddivine/node-root.pddivine.git",
+    "request": "^2.81.0"
   }
 }
