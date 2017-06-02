@@ -1,5 +1,6 @@
-const v2 = require('value-validator');
-const typeOf = require('typeof');
+const v2 = require('value-validator.pddivine');
+const typeOf = require('typeof.pddivine');
+const url = require('url');
 
 module.exports = {
   validate,
@@ -8,16 +9,27 @@ module.exports = {
   bodySchema
 };
 
+const base64 = {
+  stringify: function (v) {
+    return new Buffer(v).toString('base64');
+  },
+  parse: function (v) {
+    return new Buffer(v, 'base64').toString('ascii');
+  }
+};
+
 function validate ( schema, callback ) {
   return function ( req, res, next ) {
-    
+
     _dynamicSchema( req, schema );
+
+    if ( parseQuery(req) === false ) { return res.status(500).send({ error: 'Query string must be JSON.'} ); }
 
     const reqValues = {
       params: req.params,
       query: req.query,
       body: req.body
-    }
+    };
 
     const schemaMatch = v2( reqValues, req.requestSchema );
     if ( !schemaMatch ) {
@@ -25,7 +37,7 @@ function validate ( schema, callback ) {
         return callback(req, res, next);
       }
       return res.status(400).send({
-        error: 'Schema Adherence',
+        error: 'Request schema adherence.',
         schema: req.requestSchema
       });
     }
@@ -121,5 +133,16 @@ function ensureRequestSchema (req) {
       }
 
     };
+  }
+}
+
+function parseQuery (req) {
+  const queryString = url.parse(req.url).query;
+  if ( !queryString ) { return req.query = {}; }
+  try {
+    return req.query = JSON.parse(base64.parse(decodeURI(queryString)));
+  }
+  catch (e) {
+    return false;
   }
 }
